@@ -40,6 +40,13 @@ $(function () { // ページの読み込み(正しくはDOMの構築)が完了�
 
 	}, 1500);
 
+	// あたり判定
+	window.setInterval(function () {
+
+		player.checkCollision();
+
+	}, 50);
+
 	// キーが押されたときのイベントハンドラを定義
 	$(window).keydown(function (event) {
 
