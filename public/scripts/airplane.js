@@ -13,6 +13,8 @@
  
 var Airplane = function ($elem, opt_is_reverse, opt_x, opt_y) {
 
+	this.HitPoit = 5;
+
 	// 機体のDOM要素
 	this.$elem = $elem;
 
@@ -100,6 +102,11 @@ Airplane.prototype.fire = function () {
 			ball_y += 10; // 弾を下へずらす
 		} else {
 			ball_y -= 10; // 弾を上へずらす
+		}
+
+		// Hit
+		if(true) {
+			self.HitPoit--;
 		}
 
 		// 弾が画面外になったら
