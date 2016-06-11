@@ -12,7 +12,7 @@
  */
 var Airplane = function ($elem, opt_is_reverse, opt_x, opt_y) {
 
-	this.HitPoit = 5;
+	this.HitPoint = 5;
 
 	// 機体のDOM要素
 	this.$elem = $elem;
@@ -103,10 +103,16 @@ Airplane.prototype.fire = function () {
 			ball_y -= 10; // 弾を上へずらす
 		}
 
-		// Hit
+		// 弾がHitする
 		if(true) {
-			self.HitPoit--;
+			self.HitPoint--;
 		}
+
+		// GameOver画面を出す
+    if(self.HitPoint <= 0) {
+    drawString("Love is Over",
+		$(window).width() / 2,$(window).height() / 2);
+    }
 
 		// 弾が画面外になったら
 		if (ball_y < 0 || $(window).height() < ball_y) {

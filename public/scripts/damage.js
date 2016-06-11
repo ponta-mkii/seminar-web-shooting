@@ -1,3 +1,6 @@
+
+var Airplane = function (
+
 $(function () {
 
 var HitPoint = 5
