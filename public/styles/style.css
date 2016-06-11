@@ -6,12 +6,14 @@
 /**
  * ページ全体
  */
-
 body {
-	background-color: #333333;
-	color: #ffffff;
-	overflow: hidden;
-}
+    background-color: #483D8B;
+    color: #070809;
+    overflow: hidden;
+    background-image: url("../images/IMG_0013.jpg");
+    background-size: cover;
+ }
+
 
 
 /**
@@ -19,25 +21,26 @@ body {
  */
 
 #view {
-	background-color: rgba(0, 0, 0, 0.5);
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
-	height: 100%;
-	width: 100%;
-}
 
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 100%;
+    width: 100%;
+}
 
 /**
  * 機体
  */
 
 .airplane {
-	background-image: url(/images/airplane.png);
-	background-repeat: no-repeat;
-	position: absolute;
-	width: 100px;
-	height: 100px;
+    background-image: url(/images/airplane.png);
+
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100px;
+    height: 100px;
 }

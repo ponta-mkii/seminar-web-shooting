@@ -10,7 +10,10 @@
  * @param {[type]}  opt_x           初期位置のX座標 (オプション)
  * @param {[type]}  opt_y           初期位置のY座標 (オプション)
  */
+
 var Airplane = function($elem, opt_is_reverse, opt_x, opt_y) {
+
+    this.HitPoint = 5;
 
     // 機体のDOM要素
     this.$elem = $elem;
@@ -58,43 +61,60 @@ Airplane.prototype.moveTo = function(x, y) {
 
 /**
  * 弾丸とのあたり判定
-**/
-Airplane.prototype.checkCollision = function () {
+ **/
+Airplane.prototype.checkCollision = function() {
 
-	var self = this;
+    var self = this;
 
-	$('.bullet').each(function () {
+    $('.bullet').each(function() {
 
-		if (self.isReverse) {
-			return;
-		}
+        if (self.isReverse) {
+            return;
+        }
 
-		var x = self.getX() + 50;
-		var y = self.getY();
+        var x = self.getX() + 50;
+        var y = self.getY();
 
-		var $bullet = $(this);
+        var $bullet = $(this);
 
-		var bullet_x = $bullet.css('left');
-		if (bullet_x != undefined) {
-				bullet_x = parseInt(bullet_x.replace(/(\D+)/, ''));
-		}
-		var bullet_y = $bullet.css('top');
-		if (bullet_y != undefined) {
-				bullet_y = parseInt(bullet_y.replace(/(\D+)/, ''));
-		}
-		console.log(x, y, (x - bullet_x) * (x - bullet_x) + (y - bullet_y) * (y - bullet_y));
+        var bullet_x = $bullet.css('left');
+        if (bullet_x != undefined) {
+            bullet_x = parseInt(bullet_x.replace(/(\D+)/, ''));
+        }
+        var bullet_y = $bullet.css('top');
+        if (bullet_y != undefined) {
+            bullet_y = parseInt(bullet_y.replace(/(\D+)/, ''));
+        }
 
-		if (((bullet_x - x ) * (bullet_x - x )) + ((bullet_y - y ) * (bullet_y - y )) <= (25 + 50) * (25 + 50)) {
-				console.log((x - bullet_x) * (x - bullet_x) + (y - bullet_y) * (y - bullet_y));
-				self.$elem.css({
-					backgroundColor: 'red'
-				});
-		}
+        if (((bullet_x - x) * (bullet_x - x)) + ((bullet_y - y) * (bullet_y - y)) <= (25 + 50) * (25 + 50)) {
 
-	});
+            self.$elem.hide();
 
+            setTimeout(function () {
+              self.$elem.show();
+            }, 200);
+
+            // 弾がHitする
+            self.HitPoint--;
+
+            // GameOver画面を出す
+            if (self.HitPoint <= 0) {
+                drawString("Love is Over",
+                    $(window).width() / 2, $(window).height() / 2);
+            }
+
+            // 弾が画面外になったら
+            if (ball_y < 0 || $(window).height() < ball_y) {
+                // 弾を消す
+                $ball.remove();
+                $ball = null;
+                // タイマーを停止
+                clearInterval(interval);
+            }
+
+        }
+    });
 };
-
 
 /**
  * 弾を発射
