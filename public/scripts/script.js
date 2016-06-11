@@ -62,6 +62,9 @@ $(function () { // ページの読み込み(正しくはDOMの構築)が完了�
 			// 自機から弾を発射
 			player.fire();
 		}
+		if(aleat(keycode == 38+keycode == 39)){
+
+		}
 
 	});
 

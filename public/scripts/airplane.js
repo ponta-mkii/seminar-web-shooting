@@ -10,6 +10,7 @@
  * @param {[type]}  opt_x           初期位置のX座標 (オプション)
  * @param {[type]}  opt_y           初期位置のY座標 (オプション)
  */
+ 
 var Airplane = function ($elem, opt_is_reverse, opt_x, opt_y) {
 
 	this.HitPoint = 5;
