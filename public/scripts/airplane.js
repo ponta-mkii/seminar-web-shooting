@@ -2,7 +2,6 @@
  * seminar-web-shooting - 飛行機オブジェクト スクリプト
  */
 
-
 /**
  * 飛行機オブジェクトの初期化
  * @param {Element}  $elem          jQuery要素
@@ -174,7 +173,6 @@ Airplane.prototype.fire = function() {
     }, 20);
 
 };
-
 
 /**
  * 機体のX座標の取得
