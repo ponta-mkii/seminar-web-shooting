@@ -98,10 +98,23 @@ Airplane.prototype.checkCollision = function() {
             self.HitPoint--;
 
             // GameOver画面を出す
-            if (self.HitPoint <= 0) {
-                drawString("Love is Over",
-                    $(window).width() / 2, $(window).height() / 2);
-            }
+            if(self.HitPoint <= 0) {
+
+        //			self.$elem.hide();        
+              var $tag = $('<div/>');
+              $tag.html('Love is Over');
+              $tag.css({
+                color: "red",
+                fontSize: "80px",
+                margin: "auto",
+                top: 0,
+                bottom: 0,
+                position: "absolute",
+                width: $(window).width(),
+                textAlign: "center",
+                height: 300
+              });
+              $('body').append($tag);
 
             // 弾が画面外になったら
             if (ball_y < 0 || $(window).height() < ball_y) {
@@ -161,30 +174,6 @@ Airplane.prototype.fire = function () {
 			ball_y -= 10; // 弾を上へずらす
 		}
 
-		// 弾がHitする
-		if(true) {
-			self.HitPoint--;
-		}
-
-		// GameOver画面を出す
-    if(self.HitPoint <= 0) {
-
-//			self.$elem.hide();
-
-      var $tag = $('<div/>');
-      $tag.html('Love is Over');
-      $tag.css({
-        color: "red",
-        fontSize: "80px",
-        margin: "auto",
-        top: 0,
-        bottom: 0,
-        position: "absolute",
-        width: $(window).width(),
-        textAlign: "center",
-        height: 300
-      });
-      $('body').append($tag);
 		  //$(window).width() / 2,$(window).height() / 2);
     }
 
