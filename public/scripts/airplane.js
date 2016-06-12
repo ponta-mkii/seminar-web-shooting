@@ -116,7 +116,7 @@ Airplane.prototype.checkCollision = function() {
               });
               $('body').append($tag);
             }
-            
+
             // 弾が画面外になったら
             if (ball_y < 0 || $(window).height() < ball_y) {
                 // 弾を消す
@@ -139,6 +139,7 @@ Airplane.prototype.fire = function () {
 
 	// 弾のDOM要素を生成
 	var $ball = $('<div />');
+  $ball.addClass("bullet");
 
 	// 弾のDOM要素を <div id="view"> へ追加
 	$('#view').append($ball);
