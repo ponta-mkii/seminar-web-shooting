@@ -2,15 +2,14 @@
  * seminar-web-shooting - 飛行機オブジェクト スクリプト
  */
 
-
-/**
+/*
  * 飛行機オブジェクトの初期化
  * @param {Element}  $elem          jQuery要素
  * @param {Boolean} opt_is_reverse  機体が反転しているか否か (オプション)
  * @param {[type]}  opt_x           初期位置のX座標 (オプション)
  * @param {[type]}  opt_y           初期位置のY座標 (オプション)
- */
- 
+*/
+
 var Airplane = function ($elem, opt_is_reverse, opt_x, opt_y) {
 
 	this.HitPoit = 5;
@@ -109,6 +108,13 @@ Airplane.prototype.fire = function () {
 			self.HitPoit--;
 		}
 
+
+
+
+
+
+
+
 		// 弾が画面外になったら
 		if (ball_y < 0 || $(window).height() < ball_y) {
 			// 弾を消す
@@ -121,6 +127,7 @@ Airplane.prototype.fire = function () {
 	}, 20);
 
 };
+
 
 
 /**
@@ -217,5 +224,29 @@ Airplane.prototype.moveRight = function (opt_speed) {
 	} else { // 機体が順向(上向き)ならば
 		self.moveTo(self.getX() + 10, self.getY());
 	}
+/*
+  new Date;
+  var old_time = new Date;
+  var new_time = new Date;
+
+  (new_time-old_time)/1000;
+var Time = (new_time - old_time)/1000
+
+var $tag = $('<div/>');
+  $tag.html('Time');
+    $tag.css({
+     color:"white",
+     fontSize:"40px",
+    top: 0,
+    bottom: 0,
+    position: "absolute",
+    width: $(window).width(),
+    textAlign: "center",
+    height:100
+
+  });
+  $('body').append($tag);
+
+*/
 
 };
