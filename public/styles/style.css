@@ -12,6 +12,7 @@ body {
     overflow: hidden;
     background-image: url("../images/IMG_0013.jpg");
     background-size: cover;
+    background-attachment: scroll;
  }
 
 
@@ -33,14 +34,32 @@ body {
 }
 
 /**
- * 機体
+ * 自機体
  */
 
 .airplane {
-    background-image: url(/images/airplane.png);
+    background-image: url(/images/jet.png);
 
     background-repeat: no-repeat;
     position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
     width: 100px;
     height: 100px;
+}
+
+.eairplane {
+    background-image: url(/images/enemy.png);
+
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: 100px;
+    height: 150px;
+    transform: rotate( -90deg );
 }
