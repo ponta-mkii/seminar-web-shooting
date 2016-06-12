@@ -72,8 +72,8 @@ Airplane.prototype.checkCollision = function() {
             return;
         }
 
-        var x = self.getX() + 50;
-        var y = self.getY();
+        var x = self.getX() + 25;
+        var y = self.getY() + 20;
 
         var $bullet = $(this);
 
@@ -86,7 +86,7 @@ Airplane.prototype.checkCollision = function() {
             bullet_y = parseInt(bullet_y.replace(/(\D+)/, ''));
         }
 
-        if (((bullet_x - x) * (bullet_x - x)) + ((bullet_y - y) * (bullet_y - y)) <= (25 + 50) * (25 + 50)) {
+        if (((bullet_x - x) * (bullet_x - x)) + ((bullet_y - y) * (bullet_y - y)) <= (25/2 + 50/2) * (25/2 + 50/2)) {
 
             self.$elem.hide();
 
@@ -132,16 +132,16 @@ Airplane.prototype.fire = function() {
 
     // 弾の画像とサイズを指定
     $ball.css({
-        backgroundImage: 'url(/images/ball.png)',
+        backgroundImage: 'url(/images/missile.png)',
         backgroundSize: 'contain',
-        height: 50,
-        width: 50,
+        height: 40,
+        width: 8,
         position: 'absolute'
     });
 
     // 弾の位置を指定
     var ball_x = self.getX() + 25; // 機体の中心となるX座標
-    var ball_y = self.getY(); // 機体と同じY座標
+    var ball_y = self.getY() - 30; // 機体と同じY座標
     $ball.css({
         left: ball_x,
         top: ball_y
