@@ -10,7 +10,7 @@
  * @param {[type]}  opt_x           初期位置のX座標 (オプション)
  * @param {[type]}  opt_y           初期位置のY座標 (オプション)
  */
- 
+
 var Airplane = function ($elem, opt_is_reverse, opt_x, opt_y) {
 
 	this.HitPoint = 5;
@@ -111,8 +111,24 @@ Airplane.prototype.fire = function () {
 
 		// GameOver画面を出す
     if(self.HitPoint <= 0) {
-    drawString("Love is Over",
-		$(window).width() / 2,$(window).height() / 2);
+
+//			self.$elem.hide();
+
+      var $tag = $('<div/>');
+      $tag.html('Love is Over');
+      $tag.css({
+        color: "red",
+        fontSize: "80px",
+        margin: "auto",
+        top: 0,
+        bottom: 0,
+        position: "absolute",
+        width: $(window).width(),
+        textAlign: "center",
+        height: 300
+      });
+      $('body').append($tag);
+		  //$(window).width() / 2,$(window).height() / 2);
     }
 
 		// 弾が画面外になったら
