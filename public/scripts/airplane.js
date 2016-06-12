@@ -11,9 +11,9 @@
  * @param {[type]}  opt_y           初期位置のY座標 (オプション)
  */
 
-var Airplane = function($elem, opt_is_reverse, opt_x, opt_y) {
+var Airplane = function($elem, opt_is_reverse, life, opt_x, opt_y) {
 
-    this.HitPoint = 5;
+    this.HitPoint = life;
 
     // 機体のDOM要素
     this.$elem = $elem;
