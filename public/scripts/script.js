@@ -8,10 +8,10 @@ $(function () { // ページの読み込み(正しくはDOMの構築)が完了�
 	// 飛行機オブジェクトの初期化 - 自機
 	var player_x = $(window).width() / 2;
 	var player_y = $(window).height() - 100;
-	var player = new Airplane($('#player'), false, player_x, player_y);
+	var player = new Airplane($('#player'), false, 10, player_x, player_y);
 
 	// 飛行機オブジェクトの初期化 - 敵機
-	var enemy = new Airplane($('#enemy'), true);
+	var enemy = new Airplane($('#enemy'), true, 5);
 
 	// 敵機を左右に動かす
 	var enemy_direction = true;
