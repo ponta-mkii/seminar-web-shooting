@@ -59,21 +59,16 @@ Airplane.prototype.moveTo = function(x, y) {
 };
 
 
-/**
- * 弾丸とのあたり判定
- **/
+
+//弾丸とのあたり判定
 Airplane.prototype.checkCollision = function() {
 
     var self = this;
 
     $('.bullet').each(function() {
 
-        if (self.isReverse) {
-            return;
-        }
-
-        var x = self.getX() + 25;
-        var y = self.getY() + 20;
+        var x = self.getX() + 50; //機体のx
+        var y = self.getY(); //機体のy
 
         var $bullet = $(this);
 
@@ -86,60 +81,88 @@ Airplane.prototype.checkCollision = function() {
             bullet_y = parseInt(bullet_y.replace(/(\D+)/, ''));
         }
 
-        if (((bullet_x - x) * (bullet_x - x)) + ((bullet_y - y) * (bullet_y - y)) <= (25/2 + 50/2) * (25/2 + 50/2)) {
-
-            self.$elem.hide();
-
-            setTimeout(function () {
-              self.$elem.show();
-            }, 200);
-
-            // 弾がHitする
-            self.HitPoint--;
-
-            // GameOver画面を出す
-            if(self.HitPoint <= 0) {
-
-        //			self.$elem.hide();
-              var $tag = $('<div/>');
-              $tag.html('Love is Over');
-              $tag.css({
-                color: "red",
-                fontSize: "80px",
-                margin: "auto",
-                top: 0,
-                bottom: 0,
-                position: "absolute",
-                width: $(window).width(),
-                textAlign: "center",
-                height: 300
-              });
-              $('body').append($tag);
-            }
-
-            // 弾が画面外になったら
-            if (ball_y < 0 || $(window).height() < ball_y) {
-                // 弾を消す
-                $ball.remove();
-                $ball = null;
-                // タイマーを停止
-                clearInterval(interval);
-            }
-
+		if (!$bullet.is(':visible')) { // 見えていない弾丸は無視
+			return;
+		}
+        if (self.isReverse && $bullet.hasClass("e_bullet")) { //敵は、敵の弾丸を無視
+			return;
         }
-    });
+        if (!self.isReverse && $bullet.hasClass("p_bullet")) { //敵は、敵の弾丸を無視
+            return;
+        }
+
+        if (((bullet_x - x) * (bullet_x - x)) + ((bullet_y - y) * (bullet_y - y)) <= (25 + 50) * (25 + 50)) {
+			self.HitPoint--;//当たればHPを減らす
+			self.$elem.hide(); //一旦消す
+			$bullet.hide();
+
+			setTimeout(function() { //消した0.2秒後、瞬間表示して、食らった感じにする。
+				if (0 < self.HitPoint) {
+                	self.$elem.show();
+				}
+            }, 200);
+		}
+
+		// GameOver画面を出す
+		if (self.HitPoint == 0) {
+			self.HitPoint = -1;
+			self.$elem.hide();//完全に消す
+
+			var $tag = $('<div/>');
+			if (self.isReverse) {
+				$tag.html('Win!');
+				$tag.css({
+				  color: "yellow",
+				  fontSize: "80px",
+				  margin: "auto",
+				  top: 0,
+				  bottom: 0,
+				  position: "absolute",
+				  width: $(window).width(),
+				  textAlign: "center",
+				  height: 300
+				});
+				$('body').append($tag);
+			} else {
+				$tag.html('Love is Over');
+				$tag.css({
+				  color: "red",
+				  fontSize: "80px",
+				  margin: "auto",
+				  top: 0,
+				  bottom: 0,
+				  position: "absolute",
+				  width: $(window).width(),
+				  textAlign: "center",
+				  height: 300
+				});
+				$('body').append($tag);
+			}
+		}
+	});
 };
+
 
 /**
  * 弾を発射
  */
-Airplane.prototype.fire = function () {
+Airplane.prototype.fire = function() {
 
-	var self = this;
+    var self = this;
+
+	if (!self.$elem.is(':visible')) {
+		return;
+	}
 
 	// 弾のDOM要素を生成
 	var $ball = $('<div />');
-  $ball.addClass("bullet");
+	$ball.addClass("bullet");
+
+    if (self.isReverse) { // 敵の玉ならばe_bulletというclassを追加
+        $ball.addClass("e_bullet");
+    } else { // 違えばp_bulletというclassを追加  ※p_bullet = player_bullet
+        $ball.addClass("p_bullet");
+    }
 
 	// 弾のDOM要素を <div id="view"> へ追加
 	$('#view').append($ball);
@@ -155,7 +178,7 @@ Airplane.prototype.fire = function () {
 
 	// 弾の位置を指定
 	var ball_x = self.getX() + 25; // 機体の中心となるX座標
-	var ball_y = self.getY() - 35; // 機体と同じY座標
+    var ball_y = self.getY(); // 機体と同じY座標
 	$ball.css({
 		left: ball_x,
 		top: ball_y
@@ -261,7 +284,6 @@ Airplane.prototype.moveBack = function(opt_speed) {
 Airplane.prototype.moveLeft = function(opt_speed) {
 
     var self = this;
-
     if (self.isReverse) { // 機体が反転しているならば
         self.moveTo(self.getX() + 10, self.getY());
     } else { // 機体が順向(上向き)ならば
