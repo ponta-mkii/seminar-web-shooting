@@ -67,9 +67,8 @@ Airplane.prototype.checkCollision = function() {
     var self = this;
 
     $('.bullet').each(function() {
-
         if (self.isReverse) {
-            return;
+                      return;
         }
 
         var x = self.getX() + 50;
@@ -88,23 +87,30 @@ Airplane.prototype.checkCollision = function() {
 
         if (((bullet_x - x) * (bullet_x - x)) + ((bullet_y - y) * (bullet_y - y)) <= (25 + 50) * (25 + 50)) {
 
+          if($bullet.hasClass('e_bullet')&&!$bullet.hasClass('h_bullet')){
+
+            $bullet.addClass('h_bullet');
+
             self.$elem.hide();
+
+            // 弾がHitする
+            self.HitPoint--;
+
+          }
 
             setTimeout(function () {
               self.$elem.show();
             }, 200);
 
-            // 弾がHitする
-            self.HitPoint--;
-
             // GameOver画面を出す
             if (self.HitPoint <= 0) {
-                drawString("Love is Over",
-                    $(window).width() / 2, $(window).height() / 2);
+//                drawString("Love is Over",
+//                    $(window).width() / 2, $(window).height() / 2);
+              console.log("Love is Over");
             }
 
             // 弾が画面外になったら
-            if (ball_y < 0 || $(window).height() < ball_y) {
+            if (bullet_y < 0 || $(window).height() < bullet_y) {
                 // 弾を消す
                 $ball.remove();
                 $ball = null;
@@ -126,6 +132,12 @@ Airplane.prototype.fire = function() {
     // 弾のDOM要素を生成
     var $ball = $('<div />');
     $ball.addClass("bullet");
+
+    if (self.isReverse) { // 機体が反転しているならば
+      $ball.addClass("e_bullet");
+    } else {
+      $ball.addClass("p_bullet");
+    }
 
     // 弾のDOM要素を <div id="view"> へ追加
     $('#view').append($ball);
@@ -247,7 +259,6 @@ Airplane.prototype.moveBack = function(opt_speed) {
 Airplane.prototype.moveLeft = function(opt_speed) {
 
     var self = this;
-
     if (self.isReverse) { // 機体が反転しているならば
         self.moveTo(self.getX() + 10, self.getY());
     } else { // 機体が順向(上向き)ならば
