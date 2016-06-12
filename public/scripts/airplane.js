@@ -25,7 +25,7 @@ var Airplane = function($elem, opt_is_reverse, opt_x, opt_y) {
 
         // CSSで画像を反転させる
         this.$elem.css({
-            transform: 'scale(-1)'
+            transform: 'scale(1)'
         });
 
     } else {
