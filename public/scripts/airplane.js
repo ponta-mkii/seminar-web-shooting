@@ -2,6 +2,7 @@
  * seminar-web-shooting - 飛行機オブジェクト スクリプト
  */
 
+
 /**
  * 飛行機オブジェクトの初期化
  * @param {Element}  $elem          jQuery要素
@@ -118,61 +119,88 @@ Airplane.prototype.checkCollision = function() {
 /**
  * 弾を発射
  */
-Airplane.prototype.fire = function() {
+Airplane.prototype.fire = function () {
 
-    var self = this;
+	var self = this;
 
-    // 弾のDOM要素を生成
-    var $ball = $('<div />');
-    $ball.addClass("bullet");
+	// 弾のDOM要素を生成
+	var $ball = $('<div />');
 
-    // 弾のDOM要素を <div id="view"> へ追加
-    $('#view').append($ball);
+	// 弾のDOM要素を <div id="view"> へ追加
+	$('#view').append($ball);
 
-    // 弾の画像とサイズを指定
-    $ball.css({
-        backgroundImage: 'url(/images/missile.png)',
-        backgroundSize: 'contain',
-        height: 40,
-        width: 8,
-        position: 'absolute'
-    });
+	// 弾の画像とサイズを指定
+	$ball.css({
+		backgroundImage: 'url(/images/missile.png)',
+		backgroundSize: 'contain',
+		height: 40,
+		width: 8,
+		position: 'absolute'
+	});
 
-    // 弾の位置を指定
-    var ball_x = self.getX() + 25; // 機体の中心となるX座標
-    var ball_y = self.getY() - 30; // 機体と同じY座標
-    $ball.css({
-        left: ball_x,
-        top: ball_y
-    });
+	// 弾の位置を指定
+	var ball_x = self.getX() + 25; // 機体の中心となるX座標
+	var ball_y = self.getY() - 35; // 機体と同じY座標
+	$ball.css({
+		left: ball_x,
+		top: ball_y
+	});
 
-    // 弾を前へ移動させていくためのタイマーを生成
-    var interval = setInterval(function() {
+	// 弾を前へ移動させていくためのタイマーを生成
+	var interval = setInterval(function () {
 
-        // 弾のY座標を指定
-        $ball.css({
-            top: ball_y
-        });
+		// 弾のY座標を指定
+		$ball.css({
+			top: ball_y
+		});
 
-        // 弾のY座標を変化させる
-        if (self.isReverse) { // 機体が反転しているならば
-            ball_y += 10; // 弾を下へずらす
-        } else {
-            ball_y -= 10; // 弾を上へずらす
-        }
+		// 弾のY座標を変化させる
+		if (self.isReverse) { // 機体が反転しているならば
+			ball_y += 10; // 弾を下へずらす
+		} else {
+			ball_y -= 10; // 弾を上へずらす
+		}
 
-        // 弾が画面外になったら
-        if (ball_y < 0 || $(window).height() < ball_y) {
-            // 弾を消す
-            $ball.remove();
-            $ball = null;
-            // タイマーを停止
-            clearInterval(interval);
-        }
+		// 弾がHitする
+		if(true) {
+			self.HitPoint--;
+		}
 
-    }, 20);
+		// GameOver画面を出す
+    if(self.HitPoint <= 0) {
+
+//			self.$elem.hide();
+
+      var $tag = $('<div/>');
+      $tag.html('Love is Over');
+      $tag.css({
+        color: "red",
+        fontSize: "80px",
+        margin: "auto",
+        top: 0,
+        bottom: 0,
+        position: "absolute",
+        width: $(window).width(),
+        textAlign: "center",
+        height: 300
+      });
+      $('body').append($tag);
+		  //$(window).width() / 2,$(window).height() / 2);
+    }
+
+		// 弾が画面外になったら
+		if (ball_y < 0 || $(window).height() < ball_y) {
+			// 弾を消す
+			$ball.remove();
+			$ball = null;
+			// タイマーを停止
+			clearInterval(interval);
+		}
+
+	}, 20);
 
 };
+
 
 /**
  * 機体のX座標の取得
